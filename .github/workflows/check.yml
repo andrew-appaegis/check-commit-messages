@@ -17,6 +17,6 @@ jobs:
           if [[ $COMMIT_MSG == *"AC-1234"* ]]; then
             echo "Commit message contains AC-1234."
           else
-            echo "Commit message does not contain AC-1234."
+            echo "Commit message must start with a matching pattern AC-1234."
             exit 1 
           fi
