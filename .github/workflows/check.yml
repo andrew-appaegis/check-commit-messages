@@ -14,7 +14,7 @@ jobs:
       - name: Check commit messages
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
-          if [[ $COMMIT_MSG == .*AC-1234.* ]]; then
+          if [[ $COMMIT_MSG =~ .*AC-1234.* ]]; then
             echo "Commit message contains AC-1234."
           else
             echo "Commit message must start with a matching pattern AC-1234."
