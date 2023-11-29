@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check PR commit messages
+      - name: Check source branch name
         run: |
           SOURCE_BRANCH=$(git branch --show-current)
           echo "Source branch: $SOURCE_BRANCH"
