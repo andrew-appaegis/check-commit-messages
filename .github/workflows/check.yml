@@ -13,10 +13,9 @@ jobs:
 
       - name: Check PR commit messages
         run: |
-          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }})
-          if [[ $COMMIT_MSG =~ ^AC-1234 ]]; then
-            echo "PR commit message starts with AC-1234."
-          else
-            echo "PR commit message does not start with AC-1234."
+          SOURCE_BRANCH=$(git branch --show-current)
+          echo "Source branch: $SOURCE_BRANCH"
+          if [[ "$SOURCE_BRANCH" != "AC-1234" ]]; then
+            echo "Cannot merge. Source branch is not AC-1234."
             exit 1
           fi
