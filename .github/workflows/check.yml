@@ -13,7 +13,7 @@ jobs:
 
       - name: Check commit messages
         run: |
-          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+					COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.sha }})
           if [[ $COMMIT_MSG == "AC-1234"* ]]; then
             echo "Commit message contains AC-1234."
           else
