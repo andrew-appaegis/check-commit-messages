@@ -12,14 +12,17 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v6
 
+      - name: Set branch name as environment variable
+        run: |
+          echo "BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}" >> $GITHUB_ENV
+
       - name: Print branch name
         run: |
-          BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
           echo "Branch: $BRANCH_NAME"
 
       - name: Check if branch is AC-1234
         run: |
-          if [[ "${{ steps.branch-name.outputs.current_branch }}" != "AC-1234" ]]; then
+          if [[ "$BRANCH_NAME" != "AC-1234" ]]; then
             echo "The branch is not AC-1234."
             exit 1
           else
