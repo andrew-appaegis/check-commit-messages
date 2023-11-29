@@ -11,13 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check commit messages
+      - name: Check PR commit messages
         run: |
-          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }})
-          echo "Commit message: $COMMIT_MSG"
-          if [[ $COMMIT_MSG =~ ^AC-1234.* ]]; then
+          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }}) # 获取最新提交的提交消息
+          if [[ $COMMIT_MSG =~ ^AC-1234 ]]; then
             echo "PR commit message starts with AC-1234."
           else
-            echo "PR commit message must start with a matching pattern AC-1234."
-            exit 1 
+            echo "PR commit message does not start with AC-1234."
+            exit 1
           fi
