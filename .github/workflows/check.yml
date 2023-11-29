@@ -1,0 +1,19 @@
+name: Check Commit Messages
+on: push
+
+jobs:
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check commit messages
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          if [[ $COMMIT_MSG == *"AC-1234"* ]]; then
+            echo "Commit message contains AC-1234."
+          else
+            echo "Commit message does not contain AC-1234."
+            exit 1 
+          fi
