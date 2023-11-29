@@ -13,7 +13,7 @@ jobs:
 
       - name: Check PR commit messages
         run: |
-          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }}) # 获取最新提交的提交消息
+          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }})
           if [[ $COMMIT_MSG =~ ^AC-1234 ]]; then
             echo "PR commit message starts with AC-1234."
           else
