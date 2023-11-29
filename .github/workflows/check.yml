@@ -13,11 +13,11 @@ jobs:
 
       - name: Check commit messages
         run: |
-          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          COMMIT_MSG=$(git log --format=%B -n 1 ${{ github.event.before }}..${{ github.sha }})
           echo "Commit message: $COMMIT_MSG"
-          if [[ $COMMIT_MSG =~ .*AC-1234.* ]]; then
-            echo "Commit message contains AC-1234."
+          if [[ $COMMIT_MSG =~ ^AC-1234.* ]]; then
+            echo "PR commit message starts with AC-1234."
           else
-            echo "Commit message must start with a matching pattern AC-1234."
+            echo "PR commit message must start with a matching pattern AC-1234."
             exit 1 
           fi
