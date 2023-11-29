@@ -1,4 +1,4 @@
-name: Check Commit Messages
+name: Check PR Source Branch
 on:
   pull_request:
     branches: [ main ]
@@ -8,14 +8,20 @@ jobs:
   check-commit-messages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Extract branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
 
-      - name: Check source branch name
+      - name: Print branch name
         run: |
-          SOURCE_BRANCH=$(git branch --show-current)
-          echo "Source branch: $SOURCE_BRANCH"
-          if [[ "$SOURCE_BRANCH" != "AC-1234" ]]; then
-            echo "Cannot merge. Source branch is not AC-1234."
+          BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
+          echo "Branch: $BRANCH_NAME"
+
+      - name: Check if branch is AC-1234
+        run: |
+          if [[ "${{ steps.branch-name.outputs.current_branch }}" != "AC-1234" ]]; then
+            echo "The branch is not AC-1234."
             exit 1
+          else
+            echo "The branch is AC-1234."
           fi
