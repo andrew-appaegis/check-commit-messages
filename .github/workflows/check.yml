@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Read allowed branches from file
         run: |
+          pwd && ls -al
           mapfile -t ALLOWED_BRANCHES < ./allowed_branches.txt
 
       - name: Extract branch name
