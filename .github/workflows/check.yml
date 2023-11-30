@@ -29,8 +29,8 @@ jobs:
           echo "Allowed branches: ${ALLOWED_BRANCHES[*]}"
           
           if [[ ! "${ALLOWED_BRANCHES[*]}" =~ "${BRANCH_NAME}" ]]; then
-            echo "The branch is NOT allowed for merging."
+            echo "The branch ${BRANCH_NAME} is NOT allowed for merging."
             exit 1
           else
-            echo "The branch is allowed for merging."
+            echo "The branch ${BRANCH_NAME} is allowed for merging."
           fi
