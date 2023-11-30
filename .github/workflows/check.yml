@@ -23,7 +23,7 @@ jobs:
       - name: Check if branch is allowed
         run: |
           echo "BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}" >> $GITHUB_ENV
-          echo "Source branch: $BRANCH_NAME"
+          echo "Source branch: ${{ env.BRANCH_NAME }}"
           echo "Allowed branches: ${ALLOWED_BRANCHES[*]}"
           
           if [[ ! " ${ALLOWED_BRANCHES[*]} " =~ " ${BRANCH_NAME} " ]]; then
