@@ -14,7 +14,7 @@ jobs:
       - name: Read allowed branches from file
         run: |
           mapfile -t ALLOWED_BRANCHES < .github/workflows/allowed_branches.txt
-          echo $ALLOWED_BRANCHES >> $GITHUB_ENV
+          echo "ALLOWED_BRANCHES=${ALLOWED_BRANCHES[*]}" >> $GITHUB_ENV
 
       - name: Extract branch name
         id: branch-name
