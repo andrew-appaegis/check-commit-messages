@@ -5,26 +5,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-commit-messages:
+  check-pr-source-branch:
     runs-on: ubuntu-latest
     steps:
+      - name: Read allowed branches from file
+        run: |
+          mapfile -t ALLOWED_BRANCHES < allowed_branches.txt
+
       - name: Extract branch name
         id: branch-name
         uses: tj-actions/branch-names@v6
 
       - name: Set branch name as environment variable
         run: |
-          echo "BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}" >> $GITHUB_ENV
-
-      - name: Print branch name
-        run: |
-          echo "Branch: $BRANCH_NAME"
-
-      - name: Check if branch is AC-1234
-        run: |
-          if [[ "$BRANCH_NAME" != "AC-1234" ]]; then
-            echo "The branch is not AC-1234."
+          BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
+          
+          if [[ ! " ${ALLOWED_BRANCHES[*]} " =~ " ${BRANCH_NAME} " ]]; then
+            echo "The branch is not allowed for merging."
             exit 1
           else
-            echo "The branch is AC-1234."
+            echo "The branch is allowed for merging."
           fi
