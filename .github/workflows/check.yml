@@ -13,8 +13,7 @@ jobs:
 
       - name: Read allowed branches from file
         run: |
-          pwd && ls -alR && git branch
-          mapfile -t ALLOWED_BRANCHES < ./allowed_branches.txt
+          mapfile -t ALLOWED_BRANCHES < .github/workflows/allowed_branches.txt
 
       - name: Extract branch name
         id: branch-name
