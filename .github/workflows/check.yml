@@ -28,7 +28,7 @@ jobs:
           echo "Jira ticket: $JIRA_NUM"
           echo "Allowed branches: ${ALLOWED_BRANCHES[*]}"
           
-          if [[ ! "${ALLOWED_BRANCHES[*]}" == "${JIRA_NUM}" ]]; then
+          if [[ ! "${ALLOWED_BRANCHES[*]}" =~ "${JIRA_NUM}" ]]; then
             echo "The branch ${BRANCH_NAME} is NOT allowed for merging."
             exit 1
           else
