@@ -22,6 +22,7 @@ jobs:
       - name: Set branch name as environment variable
         run: |
           BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
+          echo "Source branch: $BRANCH_NAME"
           
           if [[ ! " ${ALLOWED_BRANCHES[*]} " =~ " ${BRANCH_NAME} " ]]; then
             echo "The branch is not allowed for merging."
