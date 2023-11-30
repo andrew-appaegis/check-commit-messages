@@ -14,16 +14,18 @@ jobs:
       - name: Read allowed branches from file
         run: |
           mapfile -t ALLOWED_BRANCHES < .github/workflows/allowed_branches.txt
+          echo $ALLOWED_BRANCHES >> $GITHUB_ENV
 
       - name: Extract branch name
         id: branch-name
         uses: tj-actions/branch-names@v6
 
-      - name: Set branch name as environment variable
+      - name: Check if branch is allowed
         run: |
           BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
+          echo $BRANCH_NAME >> $GITHUB_ENV
           echo "Source branch: $BRANCH_NAME"
-          echo ${ALLOWED_BRANCHES[*]}
+          echo "Allowed branches: ${ALLOWED_BRANCHES[*]}"
           
           if [[ ! " ${ALLOWED_BRANCHES[*]} " =~ " ${BRANCH_NAME} " ]]; then
             echo "The branch is not allowed for merging."
