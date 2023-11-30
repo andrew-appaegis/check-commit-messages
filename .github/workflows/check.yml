@@ -8,6 +8,9 @@ jobs:
   check-pr-source-branch:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Read allowed branches from file
         run: |
           pwd && ls -al && ls -al ..
